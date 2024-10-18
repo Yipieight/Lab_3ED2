@@ -38,9 +38,6 @@ public class EncryptDES {
 
         // Guardar el contenido encriptado en un nuevo archivo
         Files.write(Paths.get(encryptedFilePath), encryptedData);
-
-        // Mostrar el contenido encriptado (opcional, en Base64 para legibilidad)
-        System.out.println("Contenido encriptado (Base64): " + Base64.getEncoder().encodeToString(encryptedData));
     }
 
     // Método principal
