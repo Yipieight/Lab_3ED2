@@ -1,94 +1,116 @@
 
-# Sistema de Gestión de Inventarios con Compresión de Datos
+# DES Encryption & Decryption in Java
 
-## Descripción del Proyecto
+This repository contains two Java programs for **encrypting** and **decrypting** files using the **DES (Data Encryption Standard)** algorithm in **ECB (Electronic Code Book)** mode. The programs demonstrate how to securely encrypt the contents of a `.txt` file and decrypt it back using a shared key.
 
-Este proyecto forma parte del curso de **Estructura de Datos II**, y tiene como objetivo implementar soluciones de compresión de datos utilizando **Codificación Huffman** y **Compresión Aritmética** para optimizar el almacenamiento y transmisión de los registros de inventario de la librería "Nombres" de los libros. Dado el crecimiento del inventario y la expansión a nuevas sucursales, es necesario reducir los costos asociados con el almacenamiento y la transmisión de estos datos.
+## Features
 
-## Objetivos
+- **DES encryption** using the symmetric encryption algorithm.
+- **ECB (Electronic Code Book)** mode, which encrypts data in fixed-size blocks (64 bits).
+- **PKCS5Padding**, which ensures the plaintext blocks are correctly padded to meet DES's 64-bit block size requirement.
+- Easy-to-use methods for file-based encryption and decryption.
 
-- Implementar la Codificación Huffman para comprimir el campo **"Nombre del libro"** en el inventario.
-- Aplicar la Compresión Aritmética en el mismo campo para comparar su eficiencia.
-- Optimizar el uso del espacio en almacenamiento sin comprometer la integridad ni accesibilidad de los datos.
-- Comparar varios métodos para saber cual es mas eficiente.
+---
 
-## Estructura del Código
+## Table of Contents
 
-El proyecto se organiza en varias clases, cada una encargada de una función específica:
+1. [What is DES Encryption?](#what-is-des-encryption)
+2. [How the Code Works](#how-the-code-works)
+3. [How to Use](#how-to-use)
+4. [Improvements](#improvements)
+5. [References](#references)
 
-### Clases Principales
+---
 
-1. **`Book.java`**:
-   - Define los atributos de un libro, como `isbn`, `name`, `author`, `category`, `price` y `quantity`.
+## What is DES Encryption?
 
-2. **`BTree.java`**:
-   - Implementa un **Árbol B** para organizar los registros del inventario y optimizar las búsquedas y actualizaciones de manera eficiente.
+**Data Encryption Standard (DES)** is a symmetric key algorithm for encryption, meaning that the same key is used for both encryption and decryption. DES uses 64-bit blocks of data, and its key size is 64 bits, but only 56 bits are used in actual encryption, with the remaining 8 bits used for parity checking.
 
-3. **`ArithmeticCompressionInt.java`**:
-   - Implementa el algoritmo de **Compresión Aritmética**, que comprime el campo "Nombre del libro" basado en la frecuencia de aparición de los caracteres.
+**ECB (Electronic Code Book)** mode encrypts each block independently, which means repeated plaintext blocks will produce repeated ciphertext blocks. This mode is generally not recommended for sensitive data as it can expose patterns.
 
-4. **`huffman.java`**:
-   - Implementa la **Codificación Huffman**, que construye un árbol binario para representar los caracteres según su frecuencia de aparición, asignando códigos binarios más cortos a los caracteres más frecuentes.
+**PKCS5Padding** is a padding scheme that fills up the last block of data if it's shorter than the required 64-bit size, ensuring the input data is a multiple of the block size.
 
-5. **`Main.java`**:
-   - Punto de entrada del programa, desde donde se ejecutan las operaciones de inserción, actualización, eliminación y búsqueda en el inventario, además de aplicar los algoritmos de compresión.
+---
 
-## Algoritmos Implementados
+## How the Code Works
 
-### Codificación Huffman
+### **EncryptDES.java**
 
-La **Codificación Huffman** se utiliza para comprimir el campo **Nombre del libro**. Se basa en una **cola de prioridad** para construir el árbol de Huffman, donde los símbolos con menor frecuencia de aparición se colocan más profundamente en el árbol. Las características principales de la implementación son:
+This class handles the encryption of data:
 
-- Los símbolos con menor probabilidad se priorizan.
-- En caso de que dos símbolos tengan la misma probabilidad, se sigue el orden natural de los símbolos.
+- **`encrypt(byte[] data, String key)`**: This method takes the input data (in bytes) and a key, and encrypts the data using DES. The key must be exactly 8 characters (64 bits).
+  
+- **`encryptFile(String inputFilePath, String encryptedFilePath, String key)`**: This method reads a `.txt` file, encrypts the content using DES, and writes the encrypted output to a new file.
 
-### Compresión Aritmética
+### **DecryptDES.java**
 
-La **Compresión Aritmética** también se aplica sobre el campo **Nombre del libro**. Este algoritmo permite comprimir secuencias de caracteres basándose en la probabilidad de aparición de los símbolos, manteniendo un rango continuo de valores.
+This class handles the decryption of the previously encrypted data:
 
-#### Detalles del Algoritmo:
+- **`decrypt(byte[] encryptedData, String key)`**: This method decrypts the data using the same key that was used for encryption. The result is the original plaintext.
+  
+- **`decryptFile(String encryptedFilePath, String decryptedFilePath, String key)`**: Reads the encrypted file, decrypts its content, and writes the decrypted data back to a file.
 
-- Los símbolos se ordenan por probabilidad.
-- Se utilizan enteros de precisión infinita y un rango de valores entre 0 y 65,535 (0xffff) para realizar los cálculos de compresión.
-- Se utilizan las variables `low` y `high` para definir los rangos de codificación.
+---
 
-## Estructura de Datos Utilizada
+## How to Use
 
-- **Árbol B**: Utilizado para organizar los registros de inventario de manera eficiente, mejorando el tiempo de búsqueda y actualización de datos.
-- **Cola de Prioridad**: Utilizada para construir el árbol de Huffman.
-- **Rangos Numéricos**: Utilizados en la compresión aritmética para mantener los rangos de compresión sin pérdida de precisión.
+### 1. **Setup**
 
-## Lectura y Escritura de Archivos
+Ensure you have a Java development environment installed. You'll need to compile and run the code with the following steps:
 
-El proyecto lee datos de `lab01_books.csv` y escribe los resultados en `Output_Jose_Garcia_Lab2.txt`. Asegúrate de que estos archivos estén presentes en el directorio raíz del proyecto antes de ejecutar.
+### 2. **Encryption**
 
-## Funcionalidades
+To encrypt a file:
+- Place your plaintext file (e.g., `input.txt`) in the project directory.
+- Set the key (e.g., `ok:uo1IN`) in `EncryptDES.java`.
+- Run the encryption process by executing the `main()` method in `EncryptDES.java`.
 
-### Operaciones sobre el Inventario
+```bash
+javac EncryptDES.java
+java EncryptDES
+```
 
-El sistema permite realizar las siguientes operaciones sobre el inventario:
+This will generate an encrypted file (e.g., `encrypted.inc`) in the project directory.
 
-- **INSERT**: Inserta un nuevo libro en el inventario.
-- **PATCH**: Actualiza la información de un libro existente.
-- **DELETE**: Elimina un libro del inventario.
-- **SEARCH**: Permite buscar un libro en el inventario.
+### 3. **Decryption**
 
-## Preguntas y Respuestas Basadas en Pruebas. Tambien incluye recomendaciones
+To decrypt the file:
+- Use the same key (e.g., `ok:uo1IN`) that was used for encryption.
+- Run the decryption process by executing the `main()` method in `DecryptDES.java`.
 
-1. **¿Cuál es el mejor algoritmo para comprimir estos datos?**
-   La Codificación Huffman tiende a ser más eficiente para textos donde hay una distribución clara de frecuencias en los caracteres.
+```bash
+javac DecryptDES.java
+java DecryptDES
+```
 
-2. **¿Qué cambios se deberían hacer en el algoritmo menos eficiente?**
-   En el caso de que la Compresión Aritmética sea menos eficiente, se pueden ajustar las probabilidades de los símbolos para que se adapten mejor a la distribución de los datos.
+The output will be a decrypted file (e.g., `decrypted.txt`).
 
-3. **¿Cómo afectaron estos nuevos requerimientos al sistema original del Lab01?**
-   Los nuevos requerimientos de compresión añaden complejidad, pero la reducción en los costos de almacenamiento y transmisión justifica los cambios realizados.
+---
 
-4. **¿Qué recomendaciones harías para mejorar los algoritmos?**
-   - Ajustar las estructuras de datos, como las colas de prioridad, para reducir el tiempo de procesamiento en situaciones donde se manejan grandes cantidades de datos.
-   - Evaluar el uso de una **estructura híbrida** que combine lo mejor de ambos algoritmos para diferentes tipos de campos (por ejemplo, utilizar Huffman para nombres y Aritmética para descripciones largas).
-   - Implementar **compresión diferencial**, que almacene solo los cambios entre versiones sucesivas de los datos, en lugar de comprimir todo el campo de nuevo cada vez que se actualice.
+## Improvements
 
-## Conclusión
+Here are some suggestions for improving the code:
 
-El sistema desarrollado no solo optimiza el almacenamiento de datos del inventario de la librería "Libros y Más", sino que también demuestra la eficacia de los algoritmos de compresión vistos en clase. La correcta implementación de la **Codificación Huffman** y la **Compresión Aritmética** reduce significativamente los costos de almacenamiento y transmisión, manteniendo la integridad de los datos.
+1. **Use a More Secure Algorithm**: DES is considered outdated and insecure for most applications due to its small key size (56-bit effective key length). Consider using AES (Advanced Encryption Standard) instead, which offers 128-bit, 192-bit, and 256-bit key sizes for stronger encryption.
+
+2. **Switch to a More Secure Mode**: ECB mode is vulnerable to certain types of attacks since identical plaintext blocks produce identical ciphertext blocks. Switching to **CBC (Cipher Block Chaining)** mode with an **IV (Initialization Vector)** will improve security.
+
+3. **Error Handling**: The current implementation lacks detailed error handling. Adding custom exceptions and better error reporting (e.g., handling corrupted files, incorrect keys) would make the program more robust.
+
+4. **Input Validation**: Ensure that the input file is correctly formatted and the key is exactly 8 characters for DES encryption. Additional input validation and user prompts could be added to improve usability.
+
+5. **Command-Line Interface (CLI)**: You could extend the program to accept file paths and keys as command-line arguments instead of hardcoding them in the program. This would make the tool more flexible and user-friendly for different use cases.
+
+6. **Key Management**: Storing and securely managing the encryption key is critical. Consider adding features for secure key storage or key derivation functions.
+
+---
+
+## References
+
+- [Java Cryptography Architecture (JCA) Documentation](https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html)
+- [Introduction to Data Encryption Standard (DES)](https://en.wikipedia.org/wiki/Data_Encryption_Standard)
+- [Symmetric Encryption Algorithms](https://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html#Symmetric)
+
+---
+
+If you have any questions or feedback, feel free to open an issue or contribute to the repository. Thank you for checking out this project!

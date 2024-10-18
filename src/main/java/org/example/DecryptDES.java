@@ -35,7 +35,7 @@ public class DecryptDES {
     // Método principal
     public static void main(String[] args) {
         String key = "ok:uo1IN";  
-        String encryptedFilePath = "archivo_encriptado_Jose_Garcia_Lab4.inc";
+        String encryptedFilePath = "archivo_encriptado_Jose_Garcia_Lab4";
         String decryptedFilePath = "archivo_decifrado.txt";
 
         try {
