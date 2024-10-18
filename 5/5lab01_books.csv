@@ -1,0 +1,10 @@
+INSERT;{"isbn": "9780856397349", "name": "Then go hope attention friend peace create each.", "author": "Eric Fleming", "category": "Biography", "price": "15.78", "quantity": "690"}
+PATCH;{"isbn": "9780856397349", "price": "74.60"}
+INSERT;{"isbn": "9780612510296", "name": "Main improve discuss prevent stock knowledge color according.", "author": "Jessica Brady", "category": "Fiction", "price": "43.71", "quantity": "65"}
+DELETE;{"isbn": "9781839046407"}
+PATCH;{"isbn": "9781839046407", "category": "Romance"}
+INSERT;{"isbn": "9781839046407", "name": "Walk set design deal next off sell foot reach car official skin current charge bank someone daughter process attorney collection likely name prove simply themselves.", "author": "Thomas Jackson MD", "category": "Romance", "price": "92.05", "quantity": "460"}
+PATCH;{"isbn": "9780612510296", "name": "Whether sister spend at those clearly resource finish role."}
+INSERT;{"isbn": "9781119876984", "name": "Color speech tonight example vote dog carry machine structure feel.", "author": "Martha Brown", "category": "Self-Help", "price": "62.27", "quantity": "410"}
+INSERT;{"isbn": "9781147811407", "name": "Dark environmental more appear.", "author": "Gloria Garcia", "category": "Science Fiction", "price": "60.72", "quantity": "498"}
+DELETE;{"isbn": "9781119876984"}
