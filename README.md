@@ -105,12 +105,4 @@ Aquí tienes algunas sugerencias para mejorar el código:
 
 ---
 
-## Referencias
-
-- [Documentación de Java Cryptography Architecture (JCA)](https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html)
-- [Introducción al Estándar de Encriptación de Datos (DES)](https://es.wikipedia.org/wiki/Data_Encryption_Standard)
-- [Algoritmos de Encriptación Simétrica](https://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html#Symmetric)
-
----
-
-Si tienes alguna pregunta o comentario, no dudes en abrir un issue o contribuir al repositorio. ¡Gracias por revisar este proyecto!
+## José Andrés García Elías 1106423
